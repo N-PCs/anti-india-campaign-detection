@@ -4,12 +4,16 @@ import Navigation from './components/Navigation';
 import Dashboard from './components/Dashboard';
 import PlatformMonitor from './components/PlatformMonitor';
 import RealTimeFeed from './components/RealTimeFeed';
+import ThreatAnalysis from './components/ThreatAnalysis';
+import Reports from './components/Reports';
+import Advisory from './components/Advisory';
 import Footer from './components/Footer';
 import { connectWebSocket, disconnectWebSocket } from './services/websocket';
 import './styles/GovernmentTheme.css';
 import './styles/App.css';
 
 function App() {
+  const [activeSection, setActiveSection] = useState('dashboard');
   const [connectionStatus, setConnectionStatus] = useState('disconnected');
   const [feedItems, setFeedItems] = useState([]);
   const [stats, setStats] = useState({
@@ -24,27 +28,69 @@ function App() {
   });
 
   useEffect(() => {
-    // Connect to WebSocket
-    connectWebSocket(
-      (data) => {
-        setConnectionStatus('connected');
-        setFeedItems(prevItems => [data.detection, ...prevItems].slice(0, 100));
-        setStats(data.stats);
-      },
-      () => setConnectionStatus('disconnected'),
-      () => setConnectionStatus('connecting')
-    );
+    // Start polling for new detections
+    setConnectionStatus('connecting');
+    
+    const polling = setInterval(async () => {
+      try {
+        const response = await fetch('http://localhost:5000/api/detections?limit=1');
+        if (response.ok) {
+          const data = await response.json();
+          if (data && data.length > 0) {
+            // Get stats separately
+            const statsResponse = await fetch('http://localhost:5000/api/stats');
+            const latestStats = statsResponse.ok ? await statsResponse.json() : stats;
+            
+            setConnectionStatus('connected');
+            setFeedItems(prevItems => [data[0], ...prevItems].slice(0, 100));
+            setStats(latestStats);
+          }
+        }
+      } catch (error) {
+        console.error('Polling error:', error);
+        setConnectionStatus('disconnected');
+      }
+    }, 2000); // Poll every 2 seconds
 
     // Cleanup on component unmount
     return () => {
-      disconnectWebSocket();
+      clearInterval(polling);
     };
   }, []);
+
+  const renderActiveSection = () => {
+    switch (activeSection) {
+      case 'dashboard':
+        return (
+          <>
+            <Dashboard stats={stats} />
+            <PlatformMonitor stats={stats} />
+            <RealTimeFeed feedItems={feedItems} />
+          </>
+        );
+      case 'monitoring':
+        return <PlatformMonitor stats={stats} detailed={true} />;
+      case 'analysis':
+        return <ThreatAnalysis stats={stats} feedItems={feedItems} />;
+      case 'reports':
+        return <Reports stats={stats} feedItems={feedItems} />;
+      case 'advisory':
+        return <Advisory />;
+      default:
+        return (
+          <>
+            <Dashboard stats={stats} />
+            <PlatformMonitor stats={stats} />
+            <RealTimeFeed feedItems={feedItems} />
+          </>
+        );
+    }
+  };
 
   return (
     <div className="App">
       <Header />
-      <Navigation />
+      <Navigation activeSection={activeSection} setActiveSection={setActiveSection} />
       <main className="main-content">
         <section className="hero">
           <h2>Anti-India Campaign Detection System</h2>
@@ -52,16 +98,14 @@ function App() {
           <div className="connection-status">
             <div className={`status-indicator status-${connectionStatus}`}></div>
             <span>{
-              connectionStatus === 'connected' ? 'Connected to Real-time Monitoring System' : 
-              connectionStatus === 'connecting' ? 'Establishing Secure Connection...' : 
+              connectionStatus === 'connected' ? 'Connected to Monitoring System' : 
+              connectionStatus === 'connecting' ? 'Establishing Connection...' : 
               'Connection Disrupted'
             }</span>
           </div>
         </section>
         
-        <Dashboard stats={stats} />
-        <PlatformMonitor stats={stats} />
-        <RealTimeFeed feedItems={feedItems} />
+        {renderActiveSection()}
       </main>
       <Footer />
     </div>
