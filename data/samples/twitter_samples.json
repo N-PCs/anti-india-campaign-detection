@@ -1,0 +1,34 @@
+[
+  {
+    "id": "tw_20230101120000_1234",
+    "platform": "Twitter",
+    "content": "Hate speech detected regarding Kashmir #FreeKashmir",
+    "sentiment": "negative",
+    "risk": "high",
+    "coordinated": true,
+    "classification": "Hate Speech",
+    "topic": "Kashmir",
+    "hashtags": ["#FreeKashmir"],
+    "retweet_count": 245,
+    "like_count": 187,
+    "user_verified": false,
+    "bot_probability": 0.87,
+    "timestamp": "2023-01-01T12:00:00Z"
+  },
+  {
+    "id": "tw_20230101120001_5678",
+    "platform": "Twitter",
+    "content": "Fake news about Indian government policy on CAA #CAAProtest",
+    "sentiment": "negative",
+    "risk": "medium",
+    "coordinated": true,
+    "classification": "Fake News",
+    "topic": "CAA",
+    "hashtags": ["#CAAProtest"],
+    "retweet_count": 89,
+    "like_count": 42,
+    "user_verified": true,
+    "bot_probability": 0.45,
+    "timestamp": "2023-01-01T12:00:01Z"
+  }
+]

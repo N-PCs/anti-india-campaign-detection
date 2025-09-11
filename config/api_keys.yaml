@@ -1,0 +1,21 @@
+# API Keys configuration
+# Note: In production, use environment variables instead of storing keys here
+
+twitter:
+  api_key: ${TWITTER_API_KEY}
+  api_secret: ${TWITTER_API_SECRET}
+  access_token: ${TWITTER_ACCESS_TOKEN}
+  access_secret: ${TWITTER_ACCESS_SECRET}
+
+youtube:
+  api_key: ${YOUTUBE_API_KEY}
+
+facebook:
+  app_id: ${FACEBOOK_APP_ID}
+  app_secret: ${FACEBOOK_APP_SECRET}
+  access_token: ${FACEBOOK_ACCESS_TOKEN}
+
+telegram:
+  # Telegram monitoring requires different approach as it's not API-based
+  channels: []
+  groups: []

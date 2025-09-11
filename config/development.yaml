@@ -1,0 +1,23 @@
+# Development environment configuration
+debug: true
+host: '0.0.0.0'
+port: 5000
+
+database:
+  url: 'sqlite:///data/detection_dev.sqlite'
+
+monitoring:
+  twitter_interval: 60
+  youtube_interval: 120
+  facebook_interval: 180
+  telegram_interval: 300
+
+logging:
+  level: 'DEBUG'
+  file: 'logs/development.log'
+
+api_keys:
+  twitter: ${TWITTER_API_KEY}
+  youtube: ${YOUTUBE_API_KEY}
+  facebook_app_id: ${FACEBOOK_APP_ID}
+  facebook_app_secret: ${FACEBOOK_APP_SECRET}

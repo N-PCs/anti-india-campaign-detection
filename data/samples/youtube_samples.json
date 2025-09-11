@@ -1,0 +1,32 @@
+[
+  {
+    "id": "yt_20230101120000_1234",
+    "platform": "YouTube",
+    "content": "Misinformation video about COVID in India gaining views",
+    "sentiment": "negative",
+    "risk": "high",
+    "coordinated": false,
+    "classification": "Misinformation",
+    "topic": "COVID",
+    "view_count": 12450,
+    "like_count": 345,
+    "dislike_count": 28,
+    "comment_count": 167,
+    "timestamp": "2023-01-01T12:00:00Z"
+  },
+  {
+    "id": "yt_20230101120001_5678",
+    "platform": "YouTube",
+    "content": "Anti-India propaganda channel uploading content on Farm Laws",
+    "sentiment": "negative",
+    "risk": "medium",
+    "coordinated": true,
+    "classification": "Propaganda",
+    "topic": "Farm Laws",
+    "view_count": 8765,
+    "like_count": 234,
+    "dislike_count": 15,
+    "comment_count": 89,
+    "timestamp": "2023-01-01T12:00:01Z"
+  }
+]
