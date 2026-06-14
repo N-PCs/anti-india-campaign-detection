@@ -10,6 +10,17 @@ An AI-powered solution to detect and analyze coordinated propaganda, hate speech
 - Government-styled dashboard with real-time alerts
 - Risk assessment and visualization
 
+## Project Structure
+```
+anti-india-campaign-detection/
+├── backend/          # Flask server with WebSockets
+├── frontend/         # React application
+├── data/             # Data storage
+├── config/           # Configuration files
+├── scripts/          # Utility scripts
+└── docs/             # Documentation
+```
+
 ## Setup Instructions
 
 ### Prerequisites
@@ -52,23 +63,9 @@ An AI-powered solution to detect and analyze coordinated propaganda, hate speech
 - `new_detection` - Sent when a new threat is detected
 - `connected` - Sent when a client connects successfully
 
-## Project Structure
-anti-india-campaign-detection/
-├── backend/ # Flask server with WebSockets
-├── frontend/ # React application
-├── data/ # Data storage
-├── config/ # Configuration files
-├── scripts/ # Utility scripts
-└── docs/ # Documentation
-
-
 ## Technologies Used
 
 - Frontend: React, Socket.IO Client, CSS3
 - Backend: Flask, Flask-SocketIO, Python
 - AI: Simulated sentiment analysis and classification
 - Database: SQLite (optional)
-
-## License
-
-This project is developed for the Government of India initiative.
